@@ -18,7 +18,7 @@ class Editor():
 
         save_label = tk.Button(self.root, text="Save File", bg="lightgray")
         save_label.place(x=440, y=10)
-
+    #only jpg and png files are allowed
     def select_image(self):
         file_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.jpg *.png")])
         if file_path:
