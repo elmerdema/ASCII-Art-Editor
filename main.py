@@ -1,6 +1,10 @@
 import tkinter as tk
 from tkinter import filedialog
-
+'''
+Author:Elmer Dema
+Solution to: Programming 2 by Prof. Dr. Markus Mayer
+https://www.geeksforgeeks.org/converting-image-ascii-image-python/
+'''
 class Editor():
     def __init__(self, path, root):
         self.path = path
@@ -59,6 +63,9 @@ class Editor():
 
         characters_label = tk.Label(self.root, text="Characters", font=("Times New Roman", 10))
         characters_label.place(x=160, y=420)
+
+
+
 
 
 root = tk.Tk()
