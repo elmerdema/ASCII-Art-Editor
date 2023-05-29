@@ -1,6 +1,8 @@
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 '''
+Author:Elmer Dema
+Solution to: Programming 2 by Prof. Dr. Markus Mayer
 https://stackoverflow.com/questions/12201577/how-can-i-convert-an-rgb-image-into-grayscale-in-python
 https://pythoncircle.com/post/674/python-script-13-generating-ascii-code-from-image/
 
