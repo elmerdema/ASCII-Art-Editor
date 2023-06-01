@@ -80,8 +80,8 @@ class Ascii:
         img_euclidean = Image.open('grayscale.jpg')
         ascii_file_euclidean = open('ascii_euclidean.txt', 'w')
         width, height = img_euclidean.size
-        font_width = 1  # Define font_width based on desired character width
-        font_height = 1  # Define font_height based on desired character height
+        font_width = self.font_width  # Define font_width based on desired character width
+        font_height = self.font_height  # Define font_height based on desired character height
         ascii_euclidean = []
         for y in range(0, height, font_height):
             row = []

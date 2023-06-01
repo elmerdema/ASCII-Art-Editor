@@ -6,6 +6,12 @@ import converter
 Author:Elmer Dema
 Solution to: Programming 2 by Prof. Dr. Markus Mayer
 https://www.geeksforgeeks.org/converting-image-ascii-image-python/
+https://linuxhint.com/tkinter-scrollbar/
+P.S. Euclidean.txt uses the euclidean distance to calculate the closest character
+ to the pixel rather than comparing them to the grayscale values
+Only ascii_euclidean.txt is displayed in the text field, 
+even though it does not display it fully,
+the other ascii.txt can be found in the folder
 '''
 class Editor():
     def __init__(self, path, root):
@@ -33,9 +39,23 @@ class Editor():
             self.path_label.insert(tk.END, file_path)
 
     def body(self):
-        self.text_field = tk.Text(self.root, bg="lightgray", width=79, height=20)
+        self.text_field = tk.Text(self.root,wrap=tk.WORD, bg="lightgray", width=79, height=20)
         self.text_field.place(x=10, y=50)
+        # Add horizontal scrollbar
+        horizontal_scrollbar = tk.Scrollbar(self.root, orient=tk.HORIZONTAL)
+        horizontal_scrollbar.pack(fill=tk.X, side=tk.BOTTOM)
+        self.text_field.config(xscrollcommand=horizontal_scrollbar.set)
+        horizontal_scrollbar.config(command=self.text_field.xview)
 
+    # Add vertical scrollbar
+        vertical_scrollbar = tk.Scrollbar(self.root)
+        vertical_scrollbar.pack(fill=tk.Y, side=tk.RIGHT)
+        self.text_field.config(yscrollcommand=vertical_scrollbar.set)
+        vertical_scrollbar.config(command=self.text_field.yview)
+        zoom_frame = tk.Frame(self.root)
+        zoom_frame.pack(side=tk.TOP)
+    
+    
     def insert_text_from_file(self, file_path):
         with open(file_path, 'r') as file:
             content = file.read()
