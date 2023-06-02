@@ -1,14 +1,17 @@
 import tkinter as tk
 from tkinter import filedialog
 from tkinter.ttk import Combobox, Button
+import threading
 import converter
 '''
 Author:Elmer Dema
 Solution to: Programming 2 by Prof. Dr. Markus Mayer
 https://www.geeksforgeeks.org/converting-image-ascii-image-python/
 https://linuxhint.com/tkinter-scrollbar/
+https://www.pythontutorial.net/python-concurrency/python-threading/
+
 P.S. Euclidean.txt uses the euclidean distance to calculate the closest character
- to the pixel rather than comparing them to the grayscale values
+ to the pixel rather than comparing them to the grayscale values (bonus task)
 Only ascii_euclidean.txt is displayed in the text field, 
 even though it does not display it fully,
 the other ascii.txt can be found in the folder
@@ -109,7 +112,11 @@ class Editor():
             int(self.font_size_entry.get()),
             0,
             self.selected_option,  # Use the stored selected option here
-        )
+        ) 
+        conversion_thread = threading.Thread(target=self.perform_conversion, args=(generator,))
+        conversion_thread.start()
+
+        '''
         generator.grayscale()
         generator.create_fontimage()
         generator.create_ascii_simple()
@@ -117,6 +124,19 @@ class Editor():
         file_path = "ascii_euclidean.txt"
         self.text_field.delete(1.0, tk.END)
         self.insert_text_from_file(file_path)
+        '''
+    def perform_conversion(self, generator):
+        # Run the ASCII conversion methods
+        generator.grayscale()
+        generator.create_fontimage()
+        generator.create_ascii_simple()
+        generator.create_ascii_euclidean() 
+
+        # Update the file_path to the new ASCII file
+        file_path = "ascii_euclidean.txt"
+
+        # Clear the text field and insert the new content
+        self.root.after(0, self.insert_text_from_file, file_path)    
 
 
 root = tk.Tk()
