@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
+import os
 '''
 Author:Elmer Dema
 Solution to: Programming 2 by Prof. Dr. Markus Mayer
@@ -19,35 +20,37 @@ class Ascii:
         self.type=type
 
     def grayscale(self):
+         #//// 
         img = Image.open(self.path)
         if self.type == 'R':
             img = img.split()[0]
-            img.save('grayscale.jpg')
+            img.save(os.path.join(os.path.dirname(__file__), 'grayscale.jpg'))
         elif self.type == "G":
             img = img.split()[1]
-            img.save('grayscale.jpg')
+            img.save(os.path.join(os.path.dirname(__file__), 'grayscale.jpg'))
         else:
             img = img.split()[2]
-            img.save('grayscale.jpg')
+            img.save(os.path.join(os.path.dirname(__file__), 'grayscale.jpg'))
 
         img = img.convert('L')
-        img.save('grayscale.jpg')
+        img.save(os.path.join(os.path.dirname(__file__), 'grayscale.jpg'))
         return img
 
 
     def create_fontimage(self):
         for i in self.strings:
             img = Image.new('L', (self.font_width, self.font_height), color=self.background_color)
-            font = ImageFont.truetype('arial.ttf', self.font_size)
+            font = ImageFont.truetype(os.path.join(os.path.dirname(__file__), 'arial.ttf'), self.font_size)
             draw = ImageDraw.Draw(img)
             draw.text((self.font_width//2, self.font_height//2), i, fill=self.foreground, font=font)
-            img.save(str(self.strings.index(i)) + ".jpg")
+            
+            img.save(os.path.join(os.path.dirname(__file__), 'fontimage_' + str(self.strings.index(i)) + '.jpg'))
 
     def create_ascii_simple(self):
-        ascii_file = open('ascii.txt', 'w')
+        ascii_file = open(os.path.join(os.path.dirname(__file__), 'ascii_simple.txt'), 'w')
 
         # Load the grayscale image
-        grayscale_img = Image.open('grayscale.jpg')
+        grayscale_img = Image.open(os.path.join(os.path.dirname(__file__), 'grayscale.jpg'))
         width, height = grayscale_img.size
 
         # Get the width and height of each ASCII character
@@ -77,8 +80,8 @@ class Ascii:
         ascii_file.close()
 
     def create_ascii_euclidean(self):
-        img_euclidean = Image.open('grayscale.jpg')
-        ascii_file_euclidean = open('ascii_euclidean.txt', 'w')
+        img_euclidean = Image.open(os.path.join(os.path.dirname(__file__), 'grayscale.jpg'))
+        ascii_file_euclidean = open(os.path.join(os.path.dirname(__file__), 'ascii_euclidean.txt'), 'w')
         width, height = img_euclidean.size
         font_width = self.font_width  # Define font_width based on desired character width
         font_height = self.font_height  # Define font_height based on desired character height

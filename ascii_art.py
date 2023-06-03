@@ -3,6 +3,7 @@ from tkinter import filedialog
 from tkinter.ttk import Combobox, Button
 import threading
 import converter
+import os
 '''
 Author:Elmer Dema
 Solution to: Programming 2 by Prof. Dr. Markus Mayer
@@ -60,7 +61,7 @@ class Editor():
     
     
     def insert_text_from_file(self, file_path):
-        with open(file_path, 'r') as file:
+        with open(os.path.join(os.path.dirname(__file__), file_path), 'r') as file:
             content = file.read()
             self.text_field.delete(1.0, tk.END)
             self.text_field.insert(tk.END, content)
@@ -68,15 +69,18 @@ class Editor():
     def footer(self):
         self.font_size_entry = tk.Entry(self.root)
         self.font_size_entry.place(x=10, y=400, width=25)
+        self.font_size_entry.insert(tk.END, "10")
 
         self.char_width_entry = tk.Entry(self.root)
         self.char_width_entry.place(x=60, y=400, width=25)
+        self.char_width_entry.insert(tk.END, "10")
 
         self.char_height_entry = tk.Entry(self.root)
         self.char_height_entry.place(x=110, y=400, width=25)
-
+        self.char_height_entry.insert(tk.END, "10")
         self.characters_entry = tk.Entry(self.root)
         self.characters_entry.place(x=160, y=400, width=75)
+        self.characters_entry.insert(tk.END, "@%#*+=-:. ")
 
         options = ["R", "G", "B"]
         select_label = Combobox(self.root, values=options)
